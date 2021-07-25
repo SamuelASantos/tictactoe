@@ -12,8 +12,20 @@ reset();
 
 // EVENTS
 document.querySelector('.reset').addEventListener('click', reset);
+document.querySelectorAll('.item').forEach(item => {
+    item.addEventListener('click', itemClick);
+});
 
 // FUNCTIONS
+function itemClick(event) {
+    let item = event.target.getAttribute('data-item');
+    if (square[item] === '') {
+        square[item] = player;
+        renderSquare();
+        togglePlayer();
+    }
+}
+
 function reset() {
     warning = '';
 
@@ -40,4 +52,9 @@ function renderSquare() { // Verifica se tem algo preenchido nos objetos e preen
 function renderInfo() { // Preenche o playing e o warning
     document.querySelector('.vez').innerHTML = player;
     document.querySelector('.resultado').innerHTML = warning;
+}
+
+function togglePlayer() { // Alterna entre os jogadores
+    player = (player === 'x') ? 'o' : 'x';
+    renderInfo();
 }
